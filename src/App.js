@@ -1,14 +1,14 @@
 import React from 'react';
-import FirebaseState from './context/firebase/firebaseState'
+import {Provider} from 'react-redux';
 import UserForm from './components/UserForm'
 import UsersTable from './components/Table'
 import {Row, Col} from 'antd'
 import './App.css';
+import store from './store'
 
-const App = (props) => {
-  console.log(props)
+const App = () => {
   return (
-    <FirebaseState>
+    <Provider store={store}>
       <div className="App">
         <header className="App-header">
           <Row type="flex" style={{ height: '100vh', width: '100%' }} justify="center" align="middle">
@@ -21,7 +21,7 @@ const App = (props) => {
           </Row>
         </header>
       </div>
-    </FirebaseState>
+    </Provider>
   );
 }
 

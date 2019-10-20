@@ -2,10 +2,16 @@ import {
   ADD_USER,
   USERS_LOADING,
   GET_ALL_USERS
-} from '../types'
+} from '../actions/types'
 
-export default (state, action) => {
-  switch(action.type){
+const initialState = {
+  loading: false,
+  users: [],
+  user: {}
+}
+
+export default (state = initialState, action) => {
+  switch (action.type) {
     case GET_ALL_USERS:
       return {
         ...state,
@@ -16,7 +22,7 @@ export default (state, action) => {
       return {
         ...state,
         user: action.payload,
-        loading:false
+        loading: false
       }
     case USERS_LOADING:
       return {

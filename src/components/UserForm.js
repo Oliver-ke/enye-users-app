@@ -1,14 +1,16 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import moment from 'moment';
-import successModal from './SuccessModal'
-import FirebaseContext from '../context/firebase/fireBaseContext'
+import {addUser, getUsers} from '../actions/usersAction';
+//import successModal from './SuccessModal'
+import {useDispatch, useSelector} from 'react-redux';
 import { Card, Form, Input, Button, DatePicker, Alert} from 'antd'
 
 const { TextArea } = Input;
 
-const UserForm = ({...props}) => {
-  const firebaseContext = useContext(FirebaseContext);
-  const { user, addUser, getUsers, loading } = firebaseContext;
+const UserForm = () => {
+  const userState = useSelector(state => state.user)
+  const { loading } = userState;
+  const dispatchRef = useDispatch();
   const [error, setError] = useState('');
   const [formInput, setFormInput] = useState({
     firstName: '',
@@ -27,9 +29,8 @@ const UserForm = ({...props}) => {
     }
     const {birthday, ...rest} = formInput;
     const strBday = birthday._i;
-    addUser({...rest, birthday: strBday});
-    //successModal();
-    getUsers();
+    addUser({...rest, birthday: strBday}, dispatchRef);
+    getUsers(dispatchRef);
     return setFormInput({
       firstName: '',
       lastName: '',
@@ -40,7 +41,6 @@ const UserForm = ({...props}) => {
   };
 
   const handleInput = (e) => {
-    console.log(e);
     const { value, name } = e.target;
     setFormInput({
       ...formInput,

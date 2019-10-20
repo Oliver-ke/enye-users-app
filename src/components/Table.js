@@ -1,17 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react';
-import FirebaseContext from '../context/firebase/fireBaseContext'
+import React, { useEffect } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {getUsers} from '../actions/usersAction'
 import { Table } from 'antd'
 
 const UsersTable = () => {
-  const firebaseContext = useContext(FirebaseContext);
-  const { users, getUsers, loading } = firebaseContext;
-
+  const userState = useSelector(state => state.user);
+  const { users, loading } = userState;
+	const dispatchRef = useDispatch();
   useEffect(() => {
-    getUsers()
+    getUsers(dispatchRef)
     //eslint-disable-next-line
   }, [])
-
-  console.log(users);
 
   const columns = [
 		{
