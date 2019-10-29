@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import moment from 'moment';
-import {addUser, getUsers} from '../actions/usersAction';
-//import successModal from './SuccessModal'
+import {addUser, initialUsers} from '../actions/usersAction';
 import {useDispatch, useSelector} from 'react-redux';
 import { Card, Form, Input, Button, DatePicker, Alert} from 'antd'
 
@@ -30,7 +29,7 @@ const UserForm = () => {
     const {birthday, ...rest} = formInput;
     const strBday = birthday._i;
     addUser({...rest, birthday: strBday}, dispatchRef);
-    getUsers(dispatchRef);
+    initialUsers(dispatchRef)
     return setFormInput({
       firstName: '',
       lastName: '',
